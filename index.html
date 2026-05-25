@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Luri Wahyuni 💖</title>
+    
+    <!-- Google Fonts untuk tipografi premium: Playfair Display (Serif Romantis) & Montserrat (Sans-serif Bersih) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. PENGATURAN DASAR & VARIABEL KUSTOM
+           ========================================================================== */
+        :root {
+            --bg-color: #0b0510; /* Latar belakang gelap elegan */
+            --rose-gold: #b76e79; /* Warna Rose Gold utama */
+            --deep-pink: #ff1493; /* Pink menyala untuk neon glow */
+            --light-pink: #ffb7c5; /* Pink lembut pastel */
+            --glow-color: rgba(255, 20, 147, 0.6);
+            --rose-glow: rgba(183, 110, 121, 0.4);
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 40px 15px;
+            position: relative;
+        }
+
+        @media (min-width: 769px) {
+            body {
+                overflow: hidden;
+                width: 100vw;
+                height: 100vh;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+            }
+        }
+
+        /* ==========================================================================
+           2. TOMBOL PEMBUKA VIP (LAYAR AWAL)
+           ========================================================================== */
+        .opening-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                        visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Menghilangkan layar pembuka dengan transisi fade-out */
+        .opening-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Desain tombol VIP Premium dengan Glassmorphic & Neon Glow */
+        .vip-btn {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ffffff;
+            /* Gradien lembut antara rose gold dan deep pink transparan */
+            background: linear-gradient(135deg, rgba(183, 110, 121, 0.15), rgba(255, 20, 147, 0.15));
+            border: 1.5px solid var(--rose-gold);
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(183, 110, 121, 0.3),
+                        inset 0 0 15px rgba(255, 20, 147, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+        }
+
+        /* Efek kilauan cahaya ketika tombol pertama kali muncul / di-hover */
+        .vip-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
+
+        .vip-btn:hover::before {
+            left: 100%;
+        }
+
+        .vip-btn:hover {
+            transform: scale(1.06);
+            border-color: #ffffff;
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.6),
+                        0 0 5px rgba(183, 110, 121, 0.8),
+                        inset 0 0 10px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .vip-btn:active {
+            transform: scale(0.95);
+        }
+
+        .vip-subtitle {
+            margin-top: 1.5rem;
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            animation: pulseSubtitle 2.5s infinite ease-in-out;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes pulseSubtitle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* ==========================================================================
+           3. LATAR BELAKANG HUJAN PARTIKEL (CANVAS)
+           ========================================================================== */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Di bawah konten kartu utama */
+            pointer-events: auto; /* Membiarkan interaksi mouse */
+        }
+
+        /* ==========================================================================
+           4. KONTEN UTAMA (KARTU KADO PREMIUM)
+           ========================================================================== */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efek Glassmorphic Mewah untuk Wadah Ucapan */
+        .glass-card {
+            background: rgba(18, 9, 28, 0.45);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 1.5rem 2rem;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6),
+                        0 0 25px rgba(183, 110, 121, 0.05);
+            position: relative;
+        }
+
+        /* Efek bayangan glow di belakang kartu */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, rgba(183, 110, 121, 0.15), rgba(255, 20, 147, 0.15));
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           5. ANIMASI HATI NEON BERDENYUT (PULSE EFFECT)
+           ========================================================================== */
+        .heart-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 0.5rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* SVG Heart dengan efek filter glow berlapis */
+        .neon-heart {
+            width: 90px;
+            height: 90px;
+            fill: rgba(183, 110, 121, 0.15); /* Isi hati transparan hangat */
+            stroke: var(--rose-gold);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            /* Filter glow ganda untuk menghasilkan pendaran neon premium */
+            filter: drop-shadow(0 0 2px var(--rose-gold))
+                    drop-shadow(0 0 8px var(--deep-pink))
+                    drop-shadow(0 0 15px var(--glow-color));
+            animation: heartPulse 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+
+        @keyframes heartPulse {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 2px var(--rose-gold))
+                        drop-shadow(0 0 8px var(--deep-pink))
+                        drop-shadow(0 0 15px var(--glow-color));
+            }
+            50% {
+                transform: scale(1.1);
+                /* Memperkuat pendaran saat membesar */
+                filter: drop-shadow(0 0 4px var(--rose-gold))
+                        drop-shadow(0 0 18px var(--deep-pink))
+                        drop-shadow(0 0 35px var(--glow-color))
+                        drop-shadow(0 0 50px rgba(255, 20, 147, 0.3));
+                stroke: #ffffff;
+                fill: rgba(255, 20, 147, 0.25);
+            }
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 2px var(--rose-gold))
+                        drop-shadow(0 0 8px var(--deep-pink))
+                        drop-shadow(0 0 15px var(--glow-color));
+            }
+        }
+
+        /* ==========================================================================
+           6. KONTEN TEKS & EFEK MESIN KETIK
+           ========================================================================== */
+        .title-greeting {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--light-pink);
+            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 183, 197, 0.2);
+        }
+
+        /* Efek teks gradient nama Luri Wahyuni */
+        .name-highlight {
+            font-family: var(--font-serif);
+            font-size: 2.3rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffb7c5, #b76e79, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1.5px;
+            display: block;
+        }
+
+        /* Wadah pengetikan teks ucapan */
+        .typing-container {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+            min-height: 70px; /* Menghindari getaran layout ketika teks bertambah */
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* Kursor berkedip (Typing Cursor) */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: var(--rose-gold);
+            margin-left: 3px;
+            vertical-align: middle;
+            animation: blinkCursor 0.8s infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Catatan kaki/kutipan kecil di bawah kartu */
+        .card-footer {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 0.5rem;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .card-footer.visible {
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           7. KONTROL AUDIO (PLAY/PAUSE FLOATING BUTTON)
+           ========================================================================== */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(18, 9, 28, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .music-control.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            border-color: var(--rose-gold);
+            box-shadow: 0 0 10px rgba(183, 110, 121, 0.4);
+        }
+
+        .music-control svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--light-pink);
+            transition: fill 0.3s;
+        }
+
+        .music-control:hover svg {
+            fill: #ffffff;
+        }
+
+        /* ==========================================================================
+           8. RESPONSIVITAS (MOBILE & TABLET OPTIMIZATION)
+           ========================================================================== */
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 2.5rem 1.5rem;
+            }
+            .name-highlight {
+                font-size: 1.9rem;
+                margin-bottom: 1.5rem;
+            }
+            .title-greeting {
+                font-size: 1.3rem;
+            }
+            .vip-btn {
+                font-size: 0.95rem;
+                padding: 1rem 2rem;
+            }
+            .heart-container {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 1.5rem;
+            }
+            .neon-heart {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* ==========================================================================
+           9. SURAT CINTA (MODAL) & COUNTER
+           ========================================================================== */
+        .secret-btn {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #ffffff;
+            background: rgba(255, 20, 147, 0.2);
+            border: 1px solid var(--rose-gold);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        .secret-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .secret-btn:hover {
+            background: rgba(255, 20, 147, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 5, 16, 0.8);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 2000;
+            opacity: 0; visibility: hidden;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background: rgba(18, 9, 28, 0.85);
+            border: 1px solid var(--rose-gold);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 90%; max-width: 400px;
+            text-align: center;
+            position: relative;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+            box-shadow: 0 0 30px rgba(183, 110, 121, 0.3);
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-title {
+            font-family: var(--font-serif);
+            color: var(--light-pink);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .modal-text {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+        .close-btn {
+            background: var(--rose-gold);
+            color: #fff; border: none; padding: 0.6rem 1.5rem;
+            border-radius: 20px; cursor: pointer; font-family: var(--font-sans);
+            transition: all 0.3s;
+        }
+        .close-btn:hover {
+            background: var(--deep-pink);
+            transform: scale(1.05);
+        }
+
+        .love-counter {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--light-pink);
+            margin-top: 0.8rem;
+            line-height: 1.5;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+        .love-counter.visible {
+            opacity: 1;
+        }
+    .polaroid {
+    background-color: #fff;
+    padding: 15px 15px 45px 15px;
+    width: 200px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    transform: rotate(-3deg);
+    transition: transform 0.3s ease;
+}
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+.polaroid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 8px;
+}
+/* Side decorative photos - Mobile-First (Default) */
+.side-photo {
+    position: relative;
+    width: 180px;
+    max-width: 80vw;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    margin: 15px auto;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s ease, visibility 1.5s ease;
+    order: 2; /* Di HP, tampil di bawah kartu ucapan */
+}
+.side-photo.visible {
+    opacity: 0.9;
+    visibility: visible;
+}
+.side-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(255,105,180,0.7));
+}
+.main-container {
+    order: 1; /* Di HP, kartu ucapan berada di urutan pertama */
+}
+
+/* Layar komputer / Tablet Lebar */
+@media (min-width: 769px) {
+    .side-photo {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%) scale(1);
+        width: 300px;
+        max-width: 40vw;
+        margin: 0;
+        display: inline-block;
+        order: unset;
+    }
+    .side-photo.left {
+        left: 40px;
+        animation: floatLeft 6s ease-in-out infinite;
+        z-index: 15;
+    }
+    .side-photo.right {
+        right: 40px;
+        animation: floatRight 6s ease-in-out infinite;
+        z-index: 14;
+    }
+}
+@keyframes floatLeft {
+    0%,100% { transform: translate(-30px, -50%) rotate(-2deg); }
+    50% { transform: translate(0, -50%) rotate(2deg); }
+}
+@keyframes floatRight {
+    0%,100% { transform: translate(30px, -50%) rotate(2deg); }
+    50% { transform: translate(0, -50%) rotate(-2deg); }
+}
+<!-- Link button to photo page -->
+.photo-page-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.8rem;
+    background: rgba(255,20,147,0.2);
+    color: #ff1493;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    border: 1px solid var(--rose-gold);
+    border-radius: 30px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s;
+}
+.photo-page-btn:hover {
+    background: rgba(255,20,147,0.4);
+    transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+
+    <!-- TAG AUDIO 
+         Ganti src dengan path file musik kustom Anda jika diinginkan (misal: "lagu.mp3") 
+         Menggunakan file laguku.mp4 milik user yang diletakkan di folder yang sama -->
+    <audio id="bgMusic" loop>
+        <source src="laguku.mp4" type="audio/mp4">
+    </audio>
+
+    <!-- TOMBOL KONTROL AUDIO FLOATING -->
+    <button class="music-control" id="musicControl" aria-label="Kontrol Musik">
+        <!-- Ikon Pause (Default saat musik berbunyi) -->
+        <svg id="pauseIcon" viewBox="0 0 24 24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+        <!-- Ikon Play (Disembunyikan secara default) -->
+        <svg id="playIcon" viewBox="0 0 24 24" style="display: none;">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+    </button>
+
+    <!-- 1. TOMBOL PEMBUKA VIP -->
+    <div class="opening-screen" id="openingScreen">
+        <button class="vip-btn" id="vipBtn">Klik untuk Membuka Hatiku ❤️</button>
+        <div class="vip-subtitle">Spesial untuk Luri Wahyuni</div>
+    </div>
+    <div class="side-photo left">
+        <img src="foto4.jpeg" alt="Foto Luri Wahyuni" />
+    </div>
+    <div class="side-photo right">
+        <img src="foto4.jpeg" alt="Foto Luri Wahyuni" />
+    </div>
+
+
+
+    <!-- 2. EFEK HUJAN PARTIKEL CANVAS -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- 3. KONTEN UTAMA & ANIMASI -->
+    <div class="main-container" id="mainContainer">
+        <div class="glass-card">
+            <!-- Animasi Hati Besar Neon Berdenyut -->
+            <div class="heart-container">
+                <svg class="neon-heart" viewBox="0 0 24 24">
+                    <!-- Path geometri hati yang simetris dan indah -->
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+
+            <h2 class="title-greeting">Selamat Ulang Tahun💖</h2>
+            <h1 class="name-highlight">Luri Wahyuni💖</h1>
+
+
+            <!-- Efek Mesin Ketik -->
+            <div class="typing-container">
+                <span id="typing-text"></span><span class="cursor" id="typingCursor"></span>
+            </div>
+
+            <!-- Tombol Surat & Counter -->
+            <button class="secret-btn" id="secretBtn">Buka Surat Cinta Rahasia💖 ✉️</button>
+
+            <div class="love-counter" id="loveCounter"></div>
+
+            <!-- Kutipan kaki opsional -->
+            <div class="card-footer" id="cardFooter">
+                Selamanya Bersamamu &mdash; 💖
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SURAT CINTA -->
+    <div class="modal-overlay" id="secretModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Untuk Luri Wahyuni 💖</h2>
+            <p class="modal-text">
+                Terima kasih sudah menjadi bagian terindah dalam hidupku. 
+                Di hari spesialmu ini, aku berharap semua mimpimu menjadi kenyataan. 
+                Aku akan selalu ada untuk mendukung dan menyayangimu. <br><br>
+                I love you more than words can say💖. ✨
+            </p>
+            <button class="close-btn" id="closeModalBtn">Tutup Surat💖</button>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           JASAVCRIPT INTERAKTIF
+           ========================================================================== */
+
+        // Ambil elemen-elemen DOM
+        const bgMusic = document.getElementById('bgMusic');
+        const vipBtn = document.getElementById('vipBtn');
+        const openingScreen = document.getElementById('openingScreen');
+        const mainContainer = document.getElementById('mainContainer');
+        const typingText = document.getElementById('typing-text');
+        const typingCursor = document.getElementById('typingCursor');
+        const cardFooter = document.getElementById('cardFooter');
+        const musicControl = document.getElementById('musicControl');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+
+        // Parameter Ucapan (Bisa disunting)
+        const greetingMessage = "Selamat ulang tahun untuk Luri Wahyuni💖, orang paling spesial yang selalu menerangi hariku. Semoga bahagia selalu bersamaku! 💖✨";
+        const typingSpeed = 70; // Kecepatan mengetik per milidetik
+
+        let canvasActive = false; // Status apakah canvas hujan partikel sudah aktif
+
+        /* --------------------------------------------------------------------------
+           A. ALUR TRANSISI DAN PEMBACAAN MUSIK
+           -------------------------------------------------------------------------- */
+        vipBtn.addEventListener('click', () => {
+            // 1. Memutar musik setelah interaksi pengguna (Gesture bypass autoplay block)
+            bgMusic.play().then(() => {
+                // Musik berhasil diputar
+                musicControl.classList.add('visible');
+            }).catch(err => {
+                console.log("Autoplay musik diblokir oleh browser. Pengguna dapat mengeklik tombol musik di pojok.", err);
+                musicControl.classList.add('visible');
+                // Set icon ke status pause jika diblokir
+                toggleMusicIcons(false);
+            });
+
+            // 2. Hilangkan tombol pembuka (Fade-out screen)
+            openingScreen.classList.add('hidden');
+
+            // 3. Aktifkan hujan partikel canvas
+            canvasActive = true;
+            initCanvas();
+
+            // 4. Munculkan konten utama (Fade-in kartu setelah transisi screen selesai)
+            setTimeout(() => {
+                mainContainer.classList.add('visible');
+                document.querySelectorAll('.side-photo').forEach(photo => {
+                    photo.classList.add('visible');
+                });
+                // Mulai efek mengetik tulisan ucapan
+                startTypingEffect(greetingMessage);
+            }, 800);
+        });
+
+        /* --------------------------------------------------------------------------
+           B. KONTROL AUDIO (PLAY/PAUSE TOGGLE)
+           -------------------------------------------------------------------------- */
+        musicControl.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                toggleMusicIcons(true);
+            } else {
+                bgMusic.pause();
+                toggleMusicIcons(false);
+            }
+        });
+
+        function toggleMusicIcons(isPlaying) {
+            if (isPlaying) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           C. EFEK MESIN KETIK (TYPING EFFECT)
+           -------------------------------------------------------------------------- */
+        function startTypingEffect(message) {
+            let index = 0;
+            typingText.innerHTML = ''; // Pastikan kosong di awal
+            
+            function type() {
+                if (index < message.length) {
+                    typingText.innerHTML += message.charAt(index);
+                    index++;
+                    setTimeout(type, typingSpeed);
+                } else {
+                    // Ketikan selesai, hilangkan cursor kedip setelah jeda dan munculkan footer & tombol baru
+                    setTimeout(() => {
+                        typingCursor.style.display = 'none';
+                        cardFooter.classList.add('visible');
+                        document.getElementById('secretBtn').classList.add('visible');
+                        document.getElementById('loveCounter').classList.add('visible');
+                    }, 1000);
+                }
+            }
+            type();
+        }
+
+        /* --------------------------------------------------------------------------
+           D. HUJAN PARTIKEL CANVAS (HEART RAIN INTERACTIVE)
+           -------------------------------------------------------------------------- */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let mouseParticles = [];
+        const maxParticles = 65; // Jumlah partikel hati latar belakang
+        const colors = [
+            'rgba(183, 110, 121, ',  // Rose Gold
+            'rgba(255, 183, 197, ',  // Pink Pastel
+            'rgba(255, 20, 147, ',   // Deep Pink
+            'rgba(255, 105, 180, ',  // Hot Pink
+            'rgba(218, 165, 32, '    // Emas Sentuhan Lembut
+        ];
+
+        // Sesuaikan ukuran canvas dengan window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
+        resizeCanvas();
+
+        // Fungsi menggambar hati di Canvas menggunakan bezier curve (sangat presisi & halus)
+        function drawHeart(cContext, x, y, size, colorString, opacity) {
+            cContext.save();
+            cContext.beginPath();
+            cContext.translate(x, y);
+            cContext.scale(size, size);
+            
+            cContext.moveTo(0, -3);
+            cContext.bezierCurveTo(-3, -7, -9, -7, -9, -1);
+            cContext.bezierCurveTo(-9, 4, -3, 8, 0, 11);
+            cContext.bezierCurveTo(3, 8, 9, 4, 9, -1);
+            cContext.bezierCurveTo(9, -7, 3, -7, 0, -3);
+            
+            cContext.fillStyle = colorString + opacity + ')';
+            cContext.fill();
+            cContext.restore();
+        }
+
+        // Kelas Objek Partikel Hati Jatuh (Hujan Partikel Slow Motion)
+        class HeartParticle {
+            constructor(isInitial = false) {
+                this.reset(isInitial);
+            }
+
+            reset(isInitial) {
+                this.x = Math.random() * canvas.width;
+                // Jika awal inisiasi, sebar di layar. Jika reset saat jalan, letakkan di atas layar.
+                this.y = isInitial ? Math.random() * canvas.height : -20;
+                this.size = Math.random() * 0.7 + 0.3; // Skala ukuran (antara 0.3 hingga 1.0)
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.45 + 0.15; // Opacity transparan lembut (0.15 - 0.6)
+                this.speedY = Math.random() * 0.5 + 0.3; // Kecepatan jatuh lambat
+                this.wiggle = Math.random() * 100; // Fase goyangan sine wave
+                this.wiggleSpeed = Math.random() * 0.02 + 0.005; // Kecepatan bergoyang ke samping
+                this.wiggleRange = Math.random() * 1.2 + 0.5; // Jangkauan goyangan
+            }
+
+            update() {
+                this.y += this.speedY;
+                // Drift horizontal lembut menggunakan fungsi sinus (gerakan melayang romantis)
+                this.wiggle += this.wiggleSpeed;
+                this.x += Math.sin(this.wiggle) * this.wiggleRange;
+
+                // Reset jika keluar dari bawah layar atau samping
+                if (this.y > canvas.height + 20 || this.x < -20 || this.x > canvas.width + 20) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                drawHeart(ctx, this.x, this.y, this.size, this.color, this.opacity);
+            }
+        }
+
+        // Kelas Partikel Interaktif dari Kursor (Meledak kecil dan melayang naik)
+        class InteractiveHeart {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 0.5 + 0.3;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = 1.0;
+                // Menyebar ke arah atas secara acak
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = -(Math.random() * 1.5 + 0.5);
+                this.decay = Math.random() * 0.02 + 0.015; // Mengurangi opacity seiring waktu
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.opacity -= this.decay;
+            }
+
+            draw() {
+                if (this.opacity > 0) {
+                    drawHeart(ctx, this.x, this.y, this.size, this.color, this.opacity);
+                }
+            }
+        }
+
+        // Inisialisasi partikel hujan
+        function initCanvas() {
+            particles = [];
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new HeartParticle(true));
+            }
+            animate();
+        }
+
+        // Loop Animasi Canvas utama
+        function animate() {
+            if (!canvasActive) return;
+            
+            // Efek trail transparan tipis untuk membuat gerakan partikel berbayang lembut
+            ctx.fillStyle = 'rgba(11, 5, 16, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update dan gambar partikel hujan latar belakang
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Update dan gambar partikel interaktif kursor
+            for (let i = mouseParticles.length - 1; i >= 0; i--) {
+                const mp = mouseParticles[i];
+                mp.update();
+                mp.draw();
+                // Hapus partikel kursor yang sudah memudar sepenuhnya
+                if (mp.opacity <= 0) {
+                    mouseParticles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        /* --------------------------------------------------------------------------
+           E. DETEKSI INTERAKSI KURSOR / SENTUHAN (MEMBUATNYA LEBIH INTERAKTIF)
+           -------------------------------------------------------------------------- */
+        let lastMoveTime = 0;
+        function handlePointerMove(e) {
+            if (!canvasActive) return;
+            
+            const currentTime = Date.now();
+            // Batasi pembuatan partikel kursor agar tidak membebani performa (throttle 40ms)
+            if (currentTime - lastMoveTime > 40) {
+                let x = e.clientX || (e.touches && e.touches[0].clientX);
+                let y = e.clientY || (e.touches && e.touches[0].clientY);
+
+                if (x !== undefined && y !== undefined) {
+                    // Buat 1-2 partikel hati kecil di lokasi kursor
+                    mouseParticles.push(new InteractiveHeart(x, y));
+                    if (Math.random() > 0.5) {
+                        mouseParticles.push(new InteractiveHeart(x + (Math.random() - 0.5) * 10, y + (Math.random() - 0.5) * 10));
+                    }
+                    lastMoveTime = currentTime;
+                }
+            }
+        }
+
+        // Jalankan pelacakan gerakan pointer
+        window.addEventListener('mousemove', handlePointerMove);
+        window.addEventListener('touchmove', handlePointerMove, { passive: true });
+
+        /* --------------------------------------------------------------------------
+           F. EFEK LEDAKAN HATI SAAT KLIK (CLICK EXPLOSION)
+           -------------------------------------------------------------------------- */
+        window.addEventListener('click', (e) => {
+            if (!canvasActive) return;
+            // Hindari ledakan jika mengklik tombol atau modal
+            if(e.target.closest('button') || e.target.closest('.modal-content')) return;
+
+            const x = e.clientX;
+            const y = e.clientY;
+            // Buat ledakan 12 partikel
+            for(let i = 0; i < 12; i++) {
+                let p = new InteractiveHeart(x, y);
+                // Ubah kecepatan menyebar agar meledak ke segala arah
+                p.vx = (Math.random() - 0.5) * 8;
+                p.vy = (Math.random() - 0.5) * 8;
+                p.decay = Math.random() * 0.03 + 0.02; // Memudar lebih cepat
+                mouseParticles.push(p);
+            }
+        });
+
+        /* --------------------------------------------------------------------------
+           G. LOGIKA SURAT CINTA (MODAL)
+           -------------------------------------------------------------------------- */
+        const secretBtn = document.getElementById('secretBtn');
+        const secretModal = document.getElementById('secretModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        secretBtn.addEventListener('click', () => {
+            secretModal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            secretModal.classList.remove('active');
+        });
+
+        // Tutup modal jika klik di luar kotak
+        secretModal.addEventListener('click', (e) => {
+            if (e.target === secretModal) {
+                secretModal.classList.remove('active');
+            }
+        });
+
+        /* --------------------------------------------------------------------------
+           H. LOGIKA PENGHITUNG WAKTU (BIRTHDAY COUNTER)
+           -------------------------------------------------------------------------- */
+        const loveCounter = document.getElementById('loveCounter');
+        // GANTI TANGGAL ULANG TAHUN DI SINI (Format: MM-DD)
+        const birthdayMonthDay = '06-04'; // MM-DD format
+
+        function getNextBirthday() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const thisYearBirthday = new Date(`${currentYear}-${birthdayMonthDay}T00:00:00`);
+            // If birthday already passed this year, use next year
+            return now > thisYearBirthday ? new Date(`${currentYear + 1}-${birthdayMonthDay}T00:00:00`) : thisYearBirthday;
+        }
+
+        function updateCounter() {
+            const now = new Date().getTime();
+            const target = getNextBirthday().getTime();
+            const diff = target - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const years = Math.floor(days / 365);
+                const remainingDays = days % 365;
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                loveCounter.innerHTML = `Ulang tahun akan datang! 🎉<br><br>Waktu tersisa: <b>${years} tahun, ${remainingDays} hari</b><br><b>${hours} jam, ${minutes} menit, ${seconds} detik</b>`;
+            } else {
+                loveCounter.innerHTML = "Selamat ulang tahun, Luri! 🎂";
+            }
+        }
+        // Update setiap detik
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+    </script>
+</body>
+</html>
